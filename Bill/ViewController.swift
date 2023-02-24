@@ -7,6 +7,7 @@
 
 import UIKit
 import Foundation
+import CoreData
 
 class ViewController: UIViewController {
     
@@ -31,7 +32,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(view.center.x)
         
         let strPercents = percents.map{$0.split(separator: "").filter{Int($0) != nil}.map{String($0)}}
         intPercents = strPercents.map{Int($0.joined(separator: "")) ?? 1}
@@ -204,11 +204,25 @@ class ViewController: UIViewController {
     }
     
     private func calculateSumm(startSumm:Double, countPerson:Double, percent:Double) -> Double{
-        var result = (startSumm + startSumm * percent / 100) / countPerson
+        let result = (startSumm + startSumm * percent / 100) / countPerson
         return Double(String(format: "%.2f", result)) ?? 0.0
     }
     
-   
+    private func saveBill(date:String, summBill: String){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        guard let entity = NSEntityDescription.entity(forEntityName: "HistoryBill", in: context) else { return }
+        let object = HistoryBill(entity: entity, insertInto: context)
+        object.summ = summBill
+        object.timeAndDate = date
+        do{
+            try context.save()
+            history.append(object)
+        }catch let error as NSError{
+            print(error.localizedDescription)
+        }
+        
+    }
     
     @objc func stepperTargetActions(){
         currentCountPerson.text = "\(Int(stepperPerson.value))"
@@ -224,6 +238,15 @@ class ViewController: UIViewController {
         let act = UIAlertAction(title: "OK", style: .default)
         alert.addAction(act)
         present(alert, animated: true)
+        
+        let currentDate = Date()
+        var dateFormater = DateFormatter()
+        dateFormater.locale = Locale(identifier: "ru_RU")
+        dateFormater.dateFormat = "d-MM-yy  HH:mm"
+        let srtDate = dateFormater.string(from: currentDate)
+        print(srtDate)
+        
+        saveBill(date: srtDate, summBill: String(resultSumm))
     }
     
     
