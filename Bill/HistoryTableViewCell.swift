@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+//MARK: - Prototype Cell
 class HistoryTableViewCell: UITableViewCell {
     
     var summLabel:UILabel!
@@ -20,7 +20,7 @@ class HistoryTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    //MARK: - func create cell
     func createCell(){
         summLabel = UILabel()
         dateLabel = UILabel()
@@ -42,7 +42,7 @@ class HistoryTableViewCell: UITableViewCell {
         
         dateLabel.textAlignment = .right
     }
-    
+    //MARK: - func update info cell
     func updeteInfo(target: HistoryBill){
         summLabel.text = target.summ
         dateLabel.text = target.timeAndDate

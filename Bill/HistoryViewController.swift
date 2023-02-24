@@ -20,7 +20,7 @@ class HistoryViewController: UIViewController {
         self.table.dataSource = self
         
     }
-
+    //MARK: - settings tableView
     private func tableSettings(){
         table = UITableView(frame: view.bounds, style: .plain)
         view.addSubview(table)
@@ -32,10 +32,8 @@ class HistoryViewController: UIViewController {
     }
 
 }
-
+//MARK: - DataSource
 extension HistoryViewController:UITableViewDataSource{
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return history.count + 1
     }
@@ -55,7 +53,7 @@ extension HistoryViewController:UITableViewDataSource{
         return cell
     }
 }
-
+//MARK: - Delegate
 extension HistoryViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50

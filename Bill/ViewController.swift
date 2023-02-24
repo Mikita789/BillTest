@@ -53,6 +53,8 @@ class ViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.billTextField.resignFirstResponder()
     }
+    
+    //MARK: - top View
     private func topViewSettings(){
         topView = UIView()
         self.view.addSubview(topView)
@@ -65,7 +67,7 @@ class ViewController: UIViewController {
         
         topView.backgroundColor = .white
     }
-    
+    //MARK: - bott View
     private func bottViewSettings(){
         bottView = UIView()
         self.view.addSubview(bottView)
@@ -77,7 +79,7 @@ class ViewController: UIViewController {
         
         bottView.backgroundColor = UIColor(red: 0.57, green: 0.81, blue: 0.77, alpha: 0.5)
     }
-    
+    //MARK: - settings bill Label
     private func billLabelSettings(){
         billLabel = UILabel()
         topView.addSubview(billLabel)
@@ -90,7 +92,7 @@ class ViewController: UIViewController {
         billLabel.text = "Введите сумму счета"
         billLabel.textColor = .lightGray
     }
-    
+    //MARK: - settings TextField
     private func billTextFieldSettings(){
         billTextField = UITextField()
         topView.addSubview(billTextField)
@@ -106,7 +108,7 @@ class ViewController: UIViewController {
         billTextField.font = .systemFont(ofSize: 50)
         billTextField.keyboardType = .numberPad
     }
-    
+    //MARK: - settings PercentLabel
     private func persentLabelSettings(){
         persentLabel = UILabel()
         self.view.addSubview(persentLabel)
@@ -121,7 +123,7 @@ class ViewController: UIViewController {
         persentLabel.text = "Выберите чаевые"
         persentLabel.textColor = .lightGray
     }
-    
+    //MARK: - settings select percent
     private func selectCountPercentSettings(){
         selectCountPercent = UISegmentedControl(items: percents)
         bottView.addSubview(selectCountPercent)
@@ -135,7 +137,7 @@ class ViewController: UIViewController {
         ])
         selectCountPercent.selectedSegmentIndex = 0
     }
-    
+    //MARK: - settings count persons label
     private func countPersonLabelSettings(){
         countPersonLabel = UILabel()
         bottView.addSubview(countPersonLabel)
@@ -150,7 +152,7 @@ class ViewController: UIViewController {
         countPersonLabel.textColor = .lightGray
         countPersonLabel.text = "Колличество друзей"
     }
-    
+    //MARK: - settings current persons label
     private func currentCountPersonSettings(){
         currentCountPerson = UILabel()
         bottView.addSubview(currentCountPerson)
@@ -167,7 +169,7 @@ class ViewController: UIViewController {
         currentCountPerson.textAlignment = .center
         
     }
-    
+    //MARK: - settings stepper select persons
     private func stepperPersonSettings(){
         stepperPerson = UIStepper()
         bottView.addSubview(stepperPerson)
@@ -183,7 +185,7 @@ class ViewController: UIViewController {
         stepperPerson.value = self.startValuePerson
         stepperPerson.addTarget(self, action: #selector(stepperTargetActions), for: .valueChanged)
     }
-    
+    //MARK: - settings result button
     private func resultButtonSettings(){
         resultButton = UIButton()
         bottView.addSubview(resultButton)
@@ -202,7 +204,7 @@ class ViewController: UIViewController {
         
         resultButton.addTarget(self, action: #selector(resultButtonAction), for: .touchUpInside)
     }
-    
+    //MARK: - settings button history screen
     private func historyScreenButtonSettings(){
         historyScreenButton = UIButton()
         bottView.addSubview(historyScreenButton)
@@ -218,12 +220,12 @@ class ViewController: UIViewController {
         historyScreenButton.tintColor = .black
         historyScreenButton.addTarget(self, action: #selector(historyButtonAction), for: .touchUpInside)
     }
-    
+    //MARK: - func calceulate summ
     private func calculateSumm(startSumm:Double, countPerson:Double, percent:Double) -> Double{
         let result = (startSumm + startSumm * percent / 100) / countPerson
         return Double(String(format: "%.2f", result)) ?? 0.0
     }
-    
+    //MARK: - func save codeData
     private func saveBill(date:String, summBill: String){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -239,7 +241,7 @@ class ViewController: UIViewController {
         }
         
     }
-    
+    //MARK: - func upload Data
     private func upLoadData(){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -250,11 +252,11 @@ class ViewController: UIViewController {
             print(error.localizedDescription)
         }
     }
-    
+    //MARK: - stepper action
     @objc func stepperTargetActions(){
         currentCountPerson.text = "\(Int(stepperPerson.value))"
     }
-    
+    //MARK: - resul Button action
     @objc func resultButtonAction(){
         let currentIndexSegmentContol = selectCountPercent.selectedSegmentIndex
         guard let summ  = Double(billTextField.text ?? "0"), let countPerson = Double(currentCountPerson.text ?? "1") else { return }
@@ -275,7 +277,7 @@ class ViewController: UIViewController {
         
         saveBill(date: srtDate, summBill: String(resultSumm))
     }
-    
+    //MARK: - history button action
     @objc func historyButtonAction(){
         let nextVC = HistoryViewController()
         navigationController?.pushViewController(nextVC, animated: true)
