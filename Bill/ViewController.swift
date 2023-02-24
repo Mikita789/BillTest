@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 
 class ViewController: UIViewController {
     
@@ -24,12 +25,16 @@ class ViewController: UIViewController {
     
     var percents = ["0%", "5%", "10%", "20%"]
     var startValuePerson = 2.0
+    var intPercents = [Int]()
     
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         print(view.center.x)
+        
+        let strPercents = percents.map{$0.split(separator: "").filter{Int($0) != nil}.map{String($0)}}
+        intPercents = strPercents.map{Int($0.joined(separator: "")) ?? 1}
         
         
         topViewSettings()
@@ -95,7 +100,7 @@ class ViewController: UIViewController {
         billTextField.centerXAnchor.constraint(equalTo: topView.centerXAnchor).isActive = true
         billLabel.bottomAnchor.constraint(equalTo: topView.bottomAnchor, constant: 10).isActive = true
         
-        billTextField.placeholder = "Enter value bill"
+        billTextField.placeholder = "∑"
         billTextField.textAlignment = .center
         billTextField.textColor = .systemGreen
         billTextField.font = .systemFont(ofSize: 50)
@@ -198,15 +203,24 @@ class ViewController: UIViewController {
         resultButton.addTarget(self, action: #selector(resultButtonAction), for: .touchUpInside)
     }
     
+    private func calculateSumm(startSumm:Double, countPerson:Double, percent:Double) -> Double{
+        var result = (startSumm + startSumm * percent / 100) / countPerson
+        return Double(String(format: "%.2f", result)) ?? 0.0
+    }
+    
+   
+    
     @objc func stepperTargetActions(){
         currentCountPerson.text = "\(Int(stepperPerson.value))"
     }
     
     @objc func resultButtonAction(){
-        var result = 0
-        guard let summ = Int(billTextField.text ?? "0") else { return }
-        result = summ / (Int(currentCountPerson.text ?? "1") ?? 1)
-        let alert = UIAlertController(title: "Счет на человека", message: "\(result)", preferredStyle: .alert)
+        let currentIndexSegmentContol = selectCountPercent.selectedSegmentIndex
+        guard let summ  = Double(billTextField.text ?? "0"), let countPerson = Double(currentCountPerson.text ?? "1") else { return }
+        let percent = Double(intPercents[currentIndexSegmentContol])
+        let resultSumm = calculateSumm(startSumm: summ, countPerson: countPerson, percent: percent)
+        
+        let alert = UIAlertController(title: "Счет на человека", message: "\(resultSumm)", preferredStyle: .alert)
         let act = UIAlertAction(title: "OK", style: .default)
         alert.addAction(act)
         present(alert, animated: true)
