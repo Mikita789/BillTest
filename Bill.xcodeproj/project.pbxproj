@@ -15,6 +15,8 @@
 		38C4CE6429A76FA7001BA0A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38C4CE6329A76FA7001BA0A5 /* Assets.xcassets */; };
 		38C4CE6729A76FA7001BA0A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38C4CE6529A76FA7001BA0A5 /* LaunchScreen.storyboard */; };
 		38C4CE7029A8B19E001BA0A5 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C4CE6F29A8B19E001BA0A5 /* Data.swift */; };
+		38C4CE7229A8C2E7001BA0A5 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C4CE7129A8C2E7001BA0A5 /* HistoryViewController.swift */; };
+		38C4CE7429A8C4F5001BA0A5 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C4CE7329A8C4F5001BA0A5 /* HistoryTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,8 @@
 		38C4CE6829A76FA7001BA0A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38C4CE6E29A89019001BA0A5 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		38C4CE6F29A8B19E001BA0A5 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		38C4CE7129A8C2E7001BA0A5 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		38C4CE7329A8C4F5001BA0A5 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +69,8 @@
 				38C4CE5729A76FA6001BA0A5 /* AppDelegate.swift */,
 				38C4CE5929A76FA6001BA0A5 /* SceneDelegate.swift */,
 				38C4CE5B29A76FA6001BA0A5 /* ViewController.swift */,
+				38C4CE7129A8C2E7001BA0A5 /* HistoryViewController.swift */,
+				38C4CE7329A8C4F5001BA0A5 /* HistoryTableViewCell.swift */,
 				38C4CE6F29A8B19E001BA0A5 /* Data.swift */,
 				38C4CE5D29A76FA6001BA0A5 /* Main.storyboard */,
 				38C4CE6329A76FA7001BA0A5 /* Assets.xcassets */,
@@ -148,7 +154,9 @@
 			files = (
 				38C4CE6229A76FA6001BA0A5 /* Bill.xcdatamodeld in Sources */,
 				38C4CE7029A8B19E001BA0A5 /* Data.swift in Sources */,
+				38C4CE7429A8C4F5001BA0A5 /* HistoryTableViewCell.swift in Sources */,
 				38C4CE5C29A76FA6001BA0A5 /* ViewController.swift in Sources */,
+				38C4CE7229A8C2E7001BA0A5 /* HistoryViewController.swift in Sources */,
 				38C4CE5829A76FA6001BA0A5 /* AppDelegate.swift in Sources */,
 				38C4CE5A29A76FA6001BA0A5 /* SceneDelegate.swift in Sources */,
 			);

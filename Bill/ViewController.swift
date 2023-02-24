@@ -21,14 +21,12 @@ class ViewController: UIViewController {
     var currentCountPerson:UILabel!
     var stepperPerson:UIStepper!
     var selectCountPercent:UISegmentedControl!
-    
+    var historyScreenButton:UIButton!
     var resultButton:UIButton!
     
     var percents = ["0%", "5%", "10%", "20%"]
     var startValuePerson = 2.0
     var intPercents = [Int]()
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +45,8 @@ class ViewController: UIViewController {
         currentCountPersonSettings()
         stepperPersonSettings()
         resultButtonSettings()
+        historyScreenButtonSettings()
+        upLoadData()
         
     }
     //скрывает клавиатуру при нажатии на другое место
@@ -203,6 +203,22 @@ class ViewController: UIViewController {
         resultButton.addTarget(self, action: #selector(resultButtonAction), for: .touchUpInside)
     }
     
+    private func historyScreenButtonSettings(){
+        historyScreenButton = UIButton()
+        bottView.addSubview(historyScreenButton)
+        historyScreenButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            historyScreenButton.centerYAnchor.constraint(equalTo: resultButton.centerYAnchor),
+            historyScreenButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
+            historyScreenButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.02),
+            historyScreenButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.06)
+        ])
+        
+        historyScreenButton.setImage(UIImage(systemName: "list.bullet"), for: .normal)
+        historyScreenButton.tintColor = .black
+        historyScreenButton.addTarget(self, action: #selector(historyButtonAction), for: .touchUpInside)
+    }
+    
     private func calculateSumm(startSumm:Double, countPerson:Double, percent:Double) -> Double{
         let result = (startSumm + startSumm * percent / 100) / countPerson
         return Double(String(format: "%.2f", result)) ?? 0.0
@@ -224,6 +240,17 @@ class ViewController: UIViewController {
         
     }
     
+    private func upLoadData(){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let req:NSFetchRequest<HistoryBill> = HistoryBill.fetchRequest()
+        do{
+            history = try context.fetch(req)
+        }catch let error as NSError{
+            print(error.localizedDescription)
+        }
+    }
+    
     @objc func stepperTargetActions(){
         currentCountPerson.text = "\(Int(stepperPerson.value))"
     }
@@ -240,13 +267,18 @@ class ViewController: UIViewController {
         present(alert, animated: true)
         
         let currentDate = Date()
-        var dateFormater = DateFormatter()
+        let dateFormater = DateFormatter()
         dateFormater.locale = Locale(identifier: "ru_RU")
         dateFormater.dateFormat = "d-MM-yy  HH:mm"
         let srtDate = dateFormater.string(from: currentDate)
         print(srtDate)
         
         saveBill(date: srtDate, summBill: String(resultSumm))
+    }
+    
+    @objc func historyButtonAction(){
+        let nextVC = HistoryViewController()
+        navigationController?.pushViewController(nextVC, animated: true)
     }
     
     
